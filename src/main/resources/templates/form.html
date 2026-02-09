@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Expense Form</title>
+</head>
+<body>
+
+<h2>Expense</h2>
+
+<form action="/expenses" method="post" th:object="${expense}">
+
+    <input type="hidden" th:field="*{id}"/>
+
+    Title: <input th:field="*{title}"/><br><br>
+    Amount: <input th:field="*{amount}"/><br><br>
+    Category: <input th:field="*{category}"/><br><br>
+    Date: <input th:field="*{date}"/><br><br>
+    Notes: <input th:field="*{notes}"/><br><br>
+
+    <button type="submit">Save</button>
+
+</form>
+
+<a href="/expenses">Back</a>
+
+</body>
+</html>
