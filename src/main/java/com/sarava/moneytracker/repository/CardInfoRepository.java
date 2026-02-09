@@ -1,8 +1,15 @@
 package com.sarava.moneytracker.repository;
 
 import com.sarava.moneytracker.entity.CardInfo;
-import com.sarava.moneytracker.entity.FixedExpense;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CardInfoRepository extends JpaRepository<CardInfo, Long> {}
+import java.util.Optional;
 
+@Repository
+public interface CardInfoRepository extends JpaRepository<CardInfo, Long> {
+
+    // return single result safely
+    Optional<CardInfo> findByBank(String bank);
+
+}

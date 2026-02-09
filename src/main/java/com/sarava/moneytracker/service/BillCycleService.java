@@ -5,6 +5,7 @@ import com.sarava.moneytracker.repository.CardInfoRepository;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.Optional;
 
 @Service
 public class BillCycleService {
@@ -26,24 +27,26 @@ public class BillCycleService {
      * - Dashboard month: March (next month after billing)
      */
     public YearMonth getExpenseBillingMonth(LocalDate expenseDate, String bank) {
-        CardInfo cardInfo = cardInfoRepository.findByBank(bank);
 
-        if (cardInfo == null) {
+        Optional<CardInfo> optionalCardInfo = cardInfoRepository.findByBank(bank);
+
+        if (optionalCardInfo.isEmpty()) {
             return YearMonth.from(expenseDate);
         }
+
+        CardInfo cardInfo = optionalCardInfo.get();
 
         int billDate = cardInfo.getBillDate();
         int expenseDay = expenseDate.getDayOfMonth();
         YearMonth expenseMonth = YearMonth.from(expenseDate);
 
-        // If expense day is on or after bill date, it belongs to current month's bill cycle
         if (expenseDay >= billDate) {
-            return expenseMonth.plusMonths(1); // Billing month is next month
+            return expenseMonth.plusMonths(1);
         } else {
-            // If expense day is before bill date, it belongs to previous month's bill cycle
-            return expenseMonth; // Billing month is current month
+            return expenseMonth;
         }
     }
+
 
     /**
      * Get the dashboard display month (one month after billing month)
