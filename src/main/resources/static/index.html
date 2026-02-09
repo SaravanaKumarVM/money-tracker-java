@@ -10,8 +10,8 @@
 
 <div class="nav">
     <a href="/">Dashboard</a>
-    <a href="add-expense.html">Add Expense</a>
-    <a href="add-income.html">Add Income</a>
+    <button class="tab-btn" onclick="openTab(event, 'income-tab')">Add Income</button>
+    <button class="tab-btn" onclick="openTab(event, 'expense-tab')">Add Expense</button>
     <a href="all-expenses.html">All Expenses</a>
 </div>
 
@@ -25,6 +25,92 @@
 
 <h3>Category Split</h3>
 <ul id="categoryList"></ul>
+
+<!-- INCOME TAB -->
+<div id="income-tab" class="tab-content">
+    <h2>Add Income</h2>
+    <form id="incomeForm">
+        Name <input type="text" id="incomeName"><br>
+        Date <input type="date" id="incomeDate"><br>
+        Amount <input type="number" id="incomeAmount"><br>
+        Notes <input type="text" id="incomeNotes"><br>
+        <button type="submit">Save Income</button>
+    </form>
+</div>
+
+<!-- EXPENSE TAB -->
+<div id="expense-tab" class="tab-content">
+    <h2>Add Expense</h2>
+    <label>Expense Type:</label>
+    <select id="expenseType" onchange="showExpenseForm()">
+        <option value="expense">Expense (Cash)</option>
+        <option value="expense_card">Expense (Card)</option>
+        <option value="expense_others">Expense (Others)</option>
+    </select>
+
+    <!-- EXPENSE (CASH) FORM -->
+    <div id="expense-form" class="expense-form">
+        <h3>Cash Expense</h3>
+        <form id="expenseMainForm">
+            Date <input type="date" id="expenseMainDate"><br>
+            Category
+            <select id="expenseMainCategory">
+                <option value="">--Select Category--</option>
+                <option value="own">Own</option>
+                <option value="vmd">VMD</option>
+                <option value="vmdd">VMDD</option>
+                <option value="vml">VML</option>
+                <option value="vm">VM</option>
+                <option value="oth">OTH</option>
+                <option value="home">Home</option>
+            </select><br>
+            Amount <input type="number" id="expenseMainAmount"><br>
+            Notes <input type="text" id="expenseMainNotes"><br>
+            <button type="submit">Save Expense</button>
+        </form>
+    </div>
+
+    <!-- EXPENSE CARD FORM -->
+    <div id="expense-card-form" class="expense-form" style="display:none;">
+        <h3>Card Expense</h3>
+        <form id="expenseCardForm">
+            Date <input type="date" id="expenseCardDate"><br>
+            Bank
+            <select id="expenseCardBank">
+                <option value="">--Select Bank--</option>
+                <option value="hdfc">HDFC</option>
+                <option value="icic">ICIC</option>
+                <option value="axis">AXIS</option>
+            </select><br>
+            Category
+            <select id="expenseCardCategory">
+                <option value="">--Select Category--</option>
+                <option value="own">Own</option>
+                <option value="vmd">VMD</option>
+                <option value="vmdd">VMDD</option>
+                <option value="vml">VML</option>
+                <option value="vm">VM</option>
+                <option value="oth">OTH</option>
+                <option value="home">Home</option>
+            </select><br>
+            Amount <input type="number" id="expenseCardAmount"><br>
+            Notes <input type="text" id="expenseCardNotes"><br>
+            <button type="submit">Save Card Expense</button>
+        </form>
+    </div>
+
+    <!-- EXPENSE OTHERS FORM -->
+    <div id="expense-others-form" class="expense-form" style="display:none;">
+        <h3>Other Expense</h3>
+        <form id="expenseOthersForm">
+            Date <input type="date" id="expenseOthersDate"><br>
+            Category (Free Text) <input type="text" id="expenseOthersCategory"><br>
+            Amount <input type="number" id="expenseOthersAmount"><br>
+            Notes <input type="text" id="expenseOthersNotes"><br>
+            <button type="submit">Save Other Expense</button>
+        </form>
+    </div>
+</div>
 
 <script src="app.js"></script>
 </body>

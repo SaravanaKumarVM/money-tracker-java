@@ -15,10 +15,9 @@ public class CardInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String bank;
+    private String bank; // hdfc, icic, axis
 
-    private Integer billDate;
+    private Integer billDate; // Day of month (e.g., 10 for 10th)
 
-    private Integer dueDate;
+    private String notes;
 }
