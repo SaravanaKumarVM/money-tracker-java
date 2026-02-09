@@ -1,16 +1,15 @@
-# Use official Java 17 image
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-# copy project files
 COPY . .
 
-# build project
+# ⭐ VERY IMPORTANT (fixes your error)
+RUN chmod +x mvnw
+
+# build jar
 RUN ./mvnw clean package -DskipTests
 
-# expose dynamic port for Render
 EXPOSE 8080
 
-# run jar
-CMD ["sh", "-c", "java -jar target/*.jar --server.port=${PORT}"]
+CMD ["java","-jar","target/moneytracker-0.0.1-SNAPSHOT.jar"]
