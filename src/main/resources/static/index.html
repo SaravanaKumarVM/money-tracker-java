@@ -2,55 +2,30 @@
 <html>
 <head>
     <title>Money Tracker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Add Expense</h2>
+<h1>💰 Money Tracker</h1>
 
-<input id="title" placeholder="Title">
-<input id="amount" placeholder="Amount">
-<button onclick="addExpense()">Add</button>
+<div class="nav">
+    <a href="/">Dashboard</a>
+    <a href="add-expense.html">Add Expense</a>
+    <a href="add-income.html">Add Income</a>
+    <a href="all-expenses.html">All Expenses</a>
+</div>
 
-<h2>Expenses</h2>
-<ul id="list"></ul>
+<h2>Dashboard</h2>
 
-<script>
-    async function load() {
-      const res = await fetch("/expenses");
-      const data = await res.json();
+<div class="cards">
+    <div class="card">Today ₹ <span id="today">0</span></div>
+    <div class="card">This Month ₹ <span id="month">0</span></div>
+    <div class="card">Overall ₹ <span id="overall">0</span></div>
+</div>
 
-      const list = document.getElementById("list");
-      list.innerHTML = "";
+<h3>Category Split</h3>
+<ul id="categoryList"></ul>
 
-      data.forEach(e => {
-        list.innerHTML += `
-          <li>
-            ${e.title} - ${e.amount}
-            <button onclick="del(${e.id})">Delete</button>
-          </li>
-        `;
-      });
-    }
-
-    async function addExpense() {
-      await fetch("/expenses", {
-        method:"POST",
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({
-          title: title.value,
-          amount: amount.value
-        })
-      });
-      load();
-    }
-
-    async function del(id) {
-      await fetch("/expenses/"+id,{method:"DELETE"});
-      load();
-    }
-
-    load();
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>
